@@ -137,3 +137,34 @@ hypearSerie serie   | verificarEstrellas (calfs) && length calfs > 1 = serie {ca
 
 
 -- PARTE 2
+--1
+obtenerAnime :: [Serie] ->  [Serie]
+obtenerAnime xs = filter (\x -> genero x == "Monito chino") xs
+
+--2
+obtenerNetflixValenLaPena :: [Serie] -> [Serie]
+obtenerNetflixValenLaPena xs = filter (valeLaPena) (filter (\x -> esOriginalDeNetflis x )xs)
+
+--3
+obtenerSerieNTemporadas :: Int -> [Serie] -> [Serie]
+obtenerSerieNTemporadas n xs = filter (\x -> cantTemporadas x >= n) xs
+
+--4
+flojoMaraton :: [Serie] -> Bool
+flojoMaraton xs = all (\x -> cantTemporadas x == 1) xs
+
+--5
+cuantoTardoMaraton :: [Serie] -> Int
+cuantoTardoMaraton xs = foldl1  (+) (map (\x -> duracion x) xs)
+
+--6
+
+--7
+calificacionAltaNetflis :: [Serie] -> Int
+calificacionAltaNetflis xs = do (let ks = filter (\x -> esOriginalDeNetflis x) xs in  maximum (map (\x -> (maximum (calificaciones x))) ks) )
+
+--8
+hypearMaraton :: [Serie] -> [Serie]
+hypearMaraton xs = map (\x -> if genero x == "Drama" || genero x == "Suspenso" then hypearSerie x else x ) xs
+
+--Parte 3
