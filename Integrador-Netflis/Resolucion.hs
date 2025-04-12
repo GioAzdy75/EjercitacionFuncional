@@ -168,3 +168,26 @@ hypearMaraton :: [Serie] -> [Serie]
 hypearMaraton xs = map (\x -> if genero x == "Drama" || genero x == "Suspenso" then hypearSerie x else x ) xs
 
 --Parte 3
+
+-- 1
+promedioTemporadas :: [Serie] -> Int
+promedioTemporadas xs = div (foldl1 (+) (map cantTemporadas xs)) (length xs)
+
+promedioSerie :: Serie -> Int
+promedioSerie xs =  let calfs = calificaciones xs in div (foldl (+) 0 (calfs)) (length (calfs))
+
+calificacionMaraton :: [Serie] -> Int
+calificacionMaraton xs = div (foldl (+) 0 (map (promedioSerie) xs)) (length xs)
+
+--2 
+mejorCalificacion :: Serie -> Int
+mejorCalificacion xs = let calfs = calificaciones xs in if length calfs >=1 then maximum calfs else 0
+
+serieMejorCalificada :: [Serie] -> Serie
+serieMejorCalificada (x:xs) = foldl (\l m -> if (mejorCalificacion l) > mejorCalificacion m then l else m) x xs
+
+serieMasLarga :: [Serie] -> Serie
+serieMasLarga (x:xs) = foldl (\acc x -> if (duracion acc) > (duracion x) then acc else x) x xs 
+
+
+
